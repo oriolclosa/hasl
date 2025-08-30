@@ -308,8 +308,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
         return False
 
     try:
-        hass.async_add_job(hass.config_entries.async_forward_entry_setup(entry, "sensor"))
-        hass.async_add_job(hass.config_entries.async_forward_entry_setup(entry, "binary_sensor"))
+        await hass.config_entries.async_forward_entry_setups(entry, ["sensor", "binary_sensor"])
         logger.debug("[setup_entry] Forward entry setup succeeded")
     except:
         logger.error("[setup_entry] Forward entry setup failed")
