@@ -338,9 +338,7 @@ async def async_unload_entry(hass, entry):
     logger.debug("[unload_entry] Entered")
 
     try:
-
-        hass.async_add_job(hass.config_entries.async_forward_entry_unload(entry, "sensor"))
-        hass.async_add_job(hass.config_entries.async_forward_entry_unload(entry, "binary_sensor"))
+        await hass.config_entries.async_forward_entry_unload(entry, ["sensor", "binary_sensor"])
     except:
         logger.error("[unload_entry] Forward entry unload failed")
         return False
