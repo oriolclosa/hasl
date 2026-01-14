@@ -173,8 +173,7 @@ class slapi_ri4(slapi):
 
     async def request(self, siteid):
         logger.debug("Will call RI4 API")
-        return await self._get(RI4_URL.format(self._api_token,
-                                              siteid, self._window),"Departure Board")
+        return await self._get(RI4_URL.format(siteid, self._window),"Departure Board")
 
 
 class slapi_si2(slapi):
