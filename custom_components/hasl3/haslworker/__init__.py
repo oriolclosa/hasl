@@ -892,7 +892,7 @@ class HaslWorker(object):
                         'SHIP': "Ships",
                     }
 
-                    for slTransport, trafficType in TRANSPORT_DICT.items():
+                    for slTransport, traffictype in TRANSPORT_DICT.items():
                         departuredataCurrent = [d for d in departuredata if d["line"]["transport_mode"] == slTransport]
                         
                         for value in departuredataCurrent:
