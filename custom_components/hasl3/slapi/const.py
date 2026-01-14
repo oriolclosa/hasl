@@ -10,8 +10,7 @@ SI2_URL = TRAFIKLAB_URL + 'deviations.json?key={}&siteid={}&lineNumber={}'
 # Due to technical reasons, this API is being replaced by SLs Deviations API and GTFS Service alerts. It will stop working on 2024-03-31
 TL2_URL = TRAFIKLAB_URL + 'trafficsituation.json?key={}'
 # This API will be shut down at the end of March 2024. It is replaced by SL’s new transport API.
-RI4_URL = TRAFIKLAB_URL + 'realtimedeparturesV4.json?key={}&siteid={}' \
-                          '&timeWindow={}'
+RI4_URL = 'https://transport.integration.sl.se/v1/sites/{}/departures'
 PU1_URL = TRAFIKLAB_URL + 'typeahead.json?key={}&searchstring={}' \
                           '&stationsonly=False&maxresults=25'
 RP3_URL = TRAFIKLAB_URL + 'TravelplannerV3_1/trip.json?key={}&originExtId={}' \
