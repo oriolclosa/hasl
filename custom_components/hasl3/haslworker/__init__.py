@@ -881,22 +881,26 @@ class HaslWorker(object):
                 try:
                     departures = []
                     departuredata = await api.request(stop)
-                    departuredata = departuredata['ResponseData']
+                    departuredata = departuredata['departures']
 
-                    for (i, traffictype) in enumerate(['Metros',
-                                                       'Buses',
-                                                       'Trains',
-                                                       'Trams',
-                                                       'Ships']):
+                    TRANSPORT_DICT = {
+                        'METRO': "Metros",
+                        'BUS': "Buses",
+                        'TRAIN': "Trains",
+                        'TRAM': "Trams",
+                        'FERRY': "Ships",
+                        'SHIP': "Ships",
+                    }
 
-                        for (idx, value) in enumerate(
-                                departuredata[traffictype]):
-                            direction = value['JourneyDirection'] or 0
-                            displaytime = value['DisplayTime'] or ''
-                            destination = value['Destination'] or ''
-                            linenumber = value['LineNumber'] or ''
-                            expected = value['ExpectedDateTime'] or ''
-                            groupofline = value['GroupOfLine'] or ''
+                    for slTransport, trafficType in TRANSPORT_DICT.items():
+                        departuredataCurrent = [d for d in departuredata if ["line"]["transport_mode"] == slTransport]
+                        for value in departuredataCurrent:
+                            direction = value['direction_code'] or 0
+                            displaytime = value['display'] or ''
+                            destination = value['destination'] or ''
+                            linenumber = value['line']['designation'] or ''
+                            expected = value['expected'] or ''
+                            groupofline = value['line'].get('group_of_lines', '') or ''
                             icon = iconswitcher.get(traffictype,
                                                     'mdi:train-car')
                             diff = self.parseDepartureTime(displaytime)
