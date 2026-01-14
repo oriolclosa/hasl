@@ -88,6 +88,9 @@ class slapi(object):
         try:
             resp = requests.get(url, timeout=self._timeout)
         except Exception as e:
+            logger.error(e)
+            logger.error("aaa")
+            logger.error(url)
             error = SLAPI_HTTP_Error(997, f"An HTTP error occurred ({api})", str(e))
             logger.debug(e)
             logger.error(error)
