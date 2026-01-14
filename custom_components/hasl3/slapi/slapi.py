@@ -2,6 +2,7 @@ import json
 import httpx
 import time
 import logging
+import requests
 
 from .exceptions import (
     SLAPI_Error,
@@ -85,11 +86,7 @@ class slapi(object):
         }
 
         try:
-            async with httpx.AsyncClient() as client:
-                resp = await client.get(url,
-                                        headers={"User-agent": USER_AGENT},
-                                        follow_redirects=True,
-                                        timeout=self._timeout)
+            resp = requests.get(url, timeout=self._timeout)
         except Exception as e:
             error = SLAPI_HTTP_Error(997, f"An HTTP error occurred ({api})", str(e))
             logger.debug(e)
