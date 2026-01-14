@@ -164,8 +164,8 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     @callback
     def async_get_options_flow(
         config_entry: config_entries.ConfigEntry,
-    ) -> OptionsFlowHandler:
-        return OptionsFlowHandler()
+    ) -> OptionsFlow:
+        return OptionsFlow()
 
 
 class OptionsFlow(config_entries.OptionsFlow):
