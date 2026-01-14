@@ -2,7 +2,6 @@ import json
 import httpx
 import time
 import logging
-import requests
 
 from .exceptions import (
     SLAPI_Error,
@@ -86,7 +85,8 @@ class slapi(object):
         }
 
         try:
-            resp = requests.get(url, timeout=self._timeout)
+            async with httpx.AsyncClient() as client:
+                resp = await client.get(url, timeout=self._timeout)
         except Exception as e:
             logger.error(e)
             logger.error("aaa")
