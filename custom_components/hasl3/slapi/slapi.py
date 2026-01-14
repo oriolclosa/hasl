@@ -85,8 +85,8 @@ class slapi(object):
         }
 
         try:
-            async with httpx.AsyncClient() as client:
-                resp = await client.get(url, timeout=self._timeout, verify=False)
+            async with httpx.AsyncClient(verify=False) as client:
+                resp = await client.get(url, timeout=self._timeout)
         except Exception as e:
             logger.error(e)
             logger.error("aaa")
