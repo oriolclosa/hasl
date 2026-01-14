@@ -88,9 +88,6 @@ class slapi(object):
             async with httpx.AsyncClient(verify=False) as client:
                 resp = await client.get(url, timeout=self._timeout)
         except Exception as e:
-            logger.error(e)
-            logger.error("aaa")
-            logger.error(url)
             error = SLAPI_HTTP_Error(997, f"An HTTP error occurred ({api})", str(e))
             logger.debug(e)
             logger.error(error)
@@ -108,32 +105,7 @@ class slapi(object):
             logger.error(error)
             raise error
 
-        if 'StatusCode' in jsonResponse:
-
-            if jsonResponse['StatusCode'] == 0:
-                logger.debug("Call completed")
-                return jsonResponse
-
-            apiErrorText = f"{api_errors.get(jsonResponse['StatusCode'])} ({api})"
-
-            if apiErrorText:
-                error = SLAPI_API_Error(jsonResponse['StatusCode'],
-                                        apiErrorText,
-                                        jsonResponse['Message'])
-                logger.error(error)
-                raise error
-            else:
-                error = SLAPI_API_Error(jsonResponse['StatusCode'],
-                                        "Unknown API-response code encountered ({api})",
-                                        jsonResponse['Message'])
-                logger.error(error)
-                raise error
-
-        elif 'Trip' in jsonResponse:
-            logger.debug("Call completed")
-            return jsonResponse
-
-        elif 'Sites' in jsonResponse:
+        if 'departures' in jsonResponse:
             logger.debug("Call completed")
             return jsonResponse
 
