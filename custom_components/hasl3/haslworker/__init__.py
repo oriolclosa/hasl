@@ -894,6 +894,7 @@ class HaslWorker(object):
 
                     for slTransport, trafficType in TRANSPORT_DICT.items():
                         departuredataCurrent = [d for d in departuredata if d["line"]["transport_mode"] == slTransport]
+                        
                         for value in departuredataCurrent:
                             direction = value['direction_code'] or 0
                             displaytime = value['display'] or ''
